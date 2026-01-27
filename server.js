@@ -243,7 +243,15 @@ io.on('connection', (socket) => {
 
     socket.on('draw', (data) => {
         const roomCode = socket.currentRoom;
-        socket.to(roomCode).emit('draw', data);
+        // Forward drawing data with coordinates, color, and brush size
+        socket.to(roomCode).emit('draw', {
+            x1: data.x1,
+            y1: data.y1,
+            x2: data.x2,
+            y2: data.y2,
+            color: data.color,
+            size: data.size || 3
+        });
     });
 
     socket.on('clear-canvas', () => {

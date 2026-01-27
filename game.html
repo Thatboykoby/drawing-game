@@ -13,27 +13,28 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0d1117;
             min-height: 100vh;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
+            color: #e6edf3;
         }
 
         .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 30px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         h1 {
             text-align: center;
-            color: #667eea;
-            margin-bottom: 30px;
-            font-size: 2.5em;
+            color: #58a6ff;
+            margin: 0;
+            padding: 20px 0 10px 0;
+            font-size: 2em;
+            font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
         .hidden { display: none !important; }
@@ -41,159 +42,213 @@
         /* Lobby Screen */
         .lobby-container {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+            height: calc(100vh - 90px);
         }
 
         .lobby-sidebar {
-            background: #f8f9fa;
-            border-radius: 15px;
+            background: #161b22;
+            border-radius: 6px;
             padding: 20px;
+            border: 1px solid #30363d;
+            height: fit-content;
         }
 
         .user-info {
             text-align: center;
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 2px solid #ddd;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #58a6ff, #1f6feb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: white;
+            margin: 0 auto 12px;
         }
 
         .user-name {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #333;
-            margin: 10px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #e6edf3;
+            margin: 0;
         }
 
         .btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px 16px;
             border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: bold;
+            border-radius: 6px;
+            font-size: 0.95em;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 10px;
+            transition: all 0.15s;
+            margin-bottom: 8px;
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #238636;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
+            background: #2ea043;
         }
 
         .btn-secondary {
-            background: #6c757d;
-            color: white;
+            background: transparent;
+            color: #58a6ff;
+            border: 1px solid #30363d;
         }
 
         .btn-secondary:hover {
-            background: #5a6268;
+            background: #161b22;
+            border-color: #58a6ff;
         }
 
         .rooms-container {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
+            background: #0d1117;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .rooms-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            padding: 20px 20px 16px 20px;
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .rooms-header h2 {
+            color: #e6edf3;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 0;
         }
 
         .room-filters {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .filter-btn {
-            padding: 8px 16px;
-            border: 2px solid #667eea;
-            background: white;
-            color: #667eea;
+            padding: 6px 14px;
+            border: 1px solid #30363d;
+            background: transparent;
+            color: #7d8590;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.15s;
+        }
+
+        .filter-btn:hover {
+            border-color: #58a6ff;
+            color: #58a6ff;
         }
 
         .filter-btn.active {
-            background: #667eea;
+            background: #1f6feb;
             color: white;
+            border-color: #1f6feb;
         }
 
         .rooms-list {
-            display: grid;
-            gap: 15px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
         }
 
         .room-card {
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 20px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            transition: all 0.3s;
+            gap: 16px;
+            transition: all 0.15s;
             cursor: pointer;
+            background: #161b22;
         }
 
         .room-card:hover {
-            border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            border-color: #58a6ff;
+            background: #1c2128;
         }
 
         .room-info h3 {
-            color: #333;
-            margin-bottom: 8px;
+            color: #e6edf3;
+            margin: 0 0 8px 0;
+            font-size: 1.05em;
+            font-weight: 600;
         }
 
         .room-details {
             display: flex;
-            gap: 15px;
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .room-badge {
-            background: #667eea;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
+            gap: 12px;
+            color: #7d8590;
             font-size: 0.85em;
         }
 
+        .room-badge {
+            background: #1f6feb;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
         .room-badge.private {
-            background: #6c757d;
+            background: #da3633;
         }
 
         .join-btn {
-            padding: 10px 24px;
-            background: #667eea;
+            padding: 8px 20px;
+            background: #238636;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9em;
             cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
         }
 
-        /* Create Room Modal */
+        .join-btn:hover {
+            background: #2ea043;
+        }
+
+        /* Modal */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -201,231 +256,497 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 500px;
+            background: #161b22;
+            border-radius: 6px;
+            padding: 24px;
+            max-width: 480px;
             width: 90%;
+            border: 1px solid #30363d;
         }
 
         .modal-header {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #e6edf3;
             margin-bottom: 20px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
+            font-weight: 500;
+            color: #e6edf3;
+            font-size: 0.95em;
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
+            padding: 10px 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            font-size: 0.95em;
+            background: #0d1117;
+            color: #e6edf3;
         }
 
         .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #58a6ff;
         }
 
         .checkbox-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .checkbox-group input[type="checkbox"] {
             width: auto;
         }
 
+        /* Username Screen */
+        #usernameScreen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #usernameScreen h1 {
+            margin-bottom: 8px;
+        }
+
+        #usernameScreen h2 {
+            color: #7d8590;
+            margin-bottom: 32px;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        #usernameScreen .form-group {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        #usernameScreen .btn {
+            max-width: 360px;
+        }
+
         /* Game Room Screen */
         .game-room {
             display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 20px;
+            grid-template-columns: 1fr 340px;
+            gap: 16px;
+            padding: 16px;
+            max-width: 1600px;
+            margin: 0 auto;
+            height: calc(100vh - 70px);
         }
 
         .game-main {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
+            background: #0d1117;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .room-header {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background: #161b22;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .room-header-info {
+            color: #e6edf3;
+            font-weight: 500;
+            font-size: 0.95em;
         }
 
         .game-status {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        canvas {
-            border: 3px solid #667eea;
-            border-radius: 10px;
-            background: white;
-            display: block;
-            width: 100%;
-            max-width: 800px;
-            cursor: crosshair;
-        }
-
-        .drawing-tools {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .color-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .color-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .players-panel, .chat-panel {
-            background: #f8f9fa;
-            border-radius: 15px;
+            text-align: center;
             padding: 20px;
-        }
-
-        .panel-title {
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-
-        .player-item {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .player-item.host {
-            border: 2px solid #ffd700;
-        }
-
-        .player-item.drawing {
-            background: #ffe6b3;
-        }
-
-        .chat-messages {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            height: 300px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-
-        .chat-message {
-            margin-bottom: 8px;
-            padding: 8px;
+            background: #161b22;
+            margin: 16px 16px 0 16px;
             border-radius: 6px;
-        }
-
-        .correct-guess {
-            background: #d4edda;
-            color: #155724;
-            font-weight: bold;
-        }
-
-        .chat-input {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            border: 1px solid #30363d;
         }
 
         .word-display {
-            text-align: center;
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #667eea;
-            padding: 20px;
+            font-size: 2em;
+            font-weight: 600;
+            color: #e6edf3;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .game-status-text {
+            color: #7d8590;
+            margin-top: 8px;
+            font-size: 0.95em;
+        }
+
+        /* Enhanced Canvas Container */
+        .canvas-container {
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 8px;
+            margin: 0 16px 16px 16px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #canvas {
+            display: block;
+            border: 1px solid #d0d7de;
+            border-radius: 4px;
+            cursor: crosshair;
             background: white;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            letter-spacing: 8px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Enhanced Drawing Tools - Skribbl.io Style */
+        .drawing-tools {
+            background: #161b22;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 0 16px 16px 16px;
+            border: 1px solid #30363d;
+        }
+
+        .tool-section {
+            margin-bottom: 12px;
+        }
+
+        .tool-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .tool-label {
+            color: #7d8590;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.85em;
+        }
+
+        /* Color Palette Grid */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
+        }
+
+        .color-picker {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.1s;
+            position: relative;
+        }
+
+        .color-picker:hover {
+            transform: scale(1.05);
+        }
+
+        .color-picker.selected {
+            border-color: #58a6ff;
+            transform: scale(1.1);
+        }
+
+        /* Eraser Button */
+        .eraser-btn {
+            padding: 8px 16px;
+            background: #0d1117;
+            color: #e6edf3;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.15s;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .eraser-btn:hover {
+            border-color: #58a6ff;
+            background: #161b22;
+        }
+
+        .eraser-btn.active {
+            border-color: #58a6ff;
+            background: #1f6feb;
+            color: white;
+        }
+
+        /* Brush Size Slider */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brush-preview {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #0d1117;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #30363d;
+        }
+
+        .brush-preview-dot {
+            background: #e6edf3;
+            border-radius: 50%;
+            transition: all 0.15s;
+        }
+
+        .brush-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #30363d;
+            outline: none;
+        }
+
+        .brush-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #58a6ff;
+            cursor: pointer;
+        }
+
+        .brush-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #58a6ff;
+            cursor: pointer;
+            border: none;
+        }
+
+        .brush-size-label {
+            color: #7d8590;
+            font-weight: 500;
+            min-width: 24px;
+            font-size: 0.9em;
+        }
+
+        /* Clear Button */
+        .clear-btn {
+            padding: 8px 16px;
+            background: #0d1117;
+            color: #e6edf3;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.15s;
+            width: 100%;
+            font-size: 0.9em;
+        }
+
+        .clear-btn:hover {
+            background: #161b22;
+            border-color: #58a6ff;
+        }
+
+        /* Sidebar */
+        .game-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .players-panel, .chat-panel {
+            background: #161b22;
+            border-radius: 6px;
+            padding: 16px;
+            border: 1px solid #30363d;
+        }
+
+        .panel-header {
+            color: #e6edf3;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+
+        .players-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .player-item {
+            background: #0d1117;
+            padding: 10px 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #30363d;
+            font-size: 0.9em;
+        }
+
+        .player-item.host {
+            border-color: #d29922;
+        }
+
+        .player-item.drawing {
+            border-color: #58a6ff;
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .chat-messages {
+            height: 340px;
+            overflow-y: auto;
+            background: #0d1117;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #30363d;
+        }
+
+        .chat-message {
+            padding: 8px;
+            margin-bottom: 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            color: #e6edf3;
+            font-size: 0.9em;
+            word-wrap: break-word;
+        }
+
+        .chat-message.correct-guess {
+            background: rgba(46, 160, 67, 0.15);
+            color: #3fb950;
+            font-weight: 500;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            background: #0d1117;
+            color: #e6edf3;
+            font-size: 0.9em;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+
+        .send-btn {
+            padding: 8px 16px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .send-btn:hover {
+            background: #2ea043;
+        }
+
+        .waiting-area {
+            text-align: center;
+            padding: 48px 20px;
+            margin: 16px;
+        }
+
+        .waiting-area h2 {
+            color: #e6edf3;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .waiting-area p {
+            color: #7d8590;
+            margin-bottom: 24px;
         }
 
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-            color: #999;
+            padding: 48px 20px;
+            color: #7d8590;
         }
 
-        .empty-state svg {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            opacity: 0.5;
+        .empty-state h3 {
+            color: #e6edf3;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .lobby-container, .game-room {
+                grid-template-columns: 1fr;
+            }
+
+            .lobby-sidebar {
+                max-width: 100%;
+            }
+
+            #canvas {
+                width: 100%;
+                height: auto;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Username Entry Screen -->
+        <!-- Username Screen -->
         <div id="usernameScreen">
             <h1>🎨 Draw & Guess</h1>
-            <div style="max-width: 400px; margin: 0 auto; text-align: center;">
-                <p style="margin-bottom: 20px; color: #666;">Enter your name to start playing!</p>
-                <input type="text" id="usernameInput" placeholder="Enter your name" 
-                    style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1.1em; margin-bottom: 20px;">
-                <button class="btn btn-primary" onclick="setUsername()">Continue</button>
+            <h2>Enter Your Name</h2>
+            <div class="form-group">
+                <input type="text" id="usernameInput" placeholder="Your name..." maxlength="20">
             </div>
+            <button class="btn btn-primary" onclick="setUsername()">Start Playing</button>
         </div>
 
         <!-- Lobby Screen -->
         <div id="lobbyScreen" class="hidden">
-            <h1>🎨 Game Lobby</h1>
+            <h1>🎨 Draw & Guess</h1>
             <div class="lobby-container">
                 <div class="lobby-sidebar">
                     <div class="user-info">
-                        <div style="width: 60px; height: 60px; background: #667eea; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2em; font-weight: bold;" id="userAvatar"></div>
-                        <div class="user-name" id="displayUsername"></div>
+                        <div class="user-avatar" id="userAvatar">?</div>
+                        <div class="user-name" id="displayUsername">Player</div>
                     </div>
-                    <button class="btn btn-primary" onclick="showCreateRoomModal()">+ Create Room</button>
+                    <button class="btn btn-primary" onclick="showCreateRoomModal()">Create Room</button>
                     <button class="btn btn-secondary" onclick="showJoinPrivateModal()">Join Private Room</button>
                 </div>
 
@@ -435,68 +756,125 @@
                         <div class="room-filters">
                             <button class="filter-btn active" onclick="filterRooms('all')">All</button>
                             <button class="filter-btn" onclick="filterRooms('public')">Public</button>
-                            <button class="filter-btn" onclick="filterRooms('waiting')">Waiting</button>
                         </div>
                     </div>
                     <div class="rooms-list" id="roomsList">
-                        <!-- Rooms will be populated here -->
+                        <div class="empty-state">
+                            <h3>No rooms available</h3>
+                            <p>Create a room to start playing!</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Game Room Screen -->
+        <!-- Game Screen -->
         <div id="gameScreen" class="hidden">
             <div class="game-room">
                 <div class="game-main">
                     <div class="room-header">
-                        <div>
-                            <div class="game-status" id="gameStatus">Waiting for host to start...</div>
-                            <div style="color: #666; margin-top: 5px;" id="roomInfo"></div>
-                        </div>
-                        <button class="btn btn-secondary" onclick="leaveRoom()" style="width: auto; padding: 10px 20px;">Leave Room</button>
+                        <div class="room-header-info" id="roomInfo">Room: Loading...</div>
+                        <button class="btn btn-secondary" onclick="leaveRoom()" style="width: auto; padding: 8px 20px;">Leave Room</button>
                     </div>
 
-                    <div id="waitingArea">
-                        <div class="empty-state">
-                            <svg fill="#667eea" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            <h2>Waiting for Players...</h2>
-                            <p>Game will start when the host is ready</p>
-                            <div id="startGameBtn" class="hidden" style="margin-top: 20px;">
-                                <button class="btn btn-primary" onclick="startGame()">Start Game</button>
+                    <!-- Waiting Area -->
+                    <div id="waitingArea" class="waiting-area">
+                        <h2>⏳ Waiting for players...</h2>
+                        <p>The host will start the game when ready!</p>
+                        <button id="startGameBtn" class="btn btn-primary hidden" onclick="startGame()" style="max-width: 300px; margin: 20px auto;">Start Game</button>
+                    </div>
+
+                    <!-- Game Area -->
+                    <div id="gameArea" class="hidden">
+                        <div class="game-status">
+                            <div class="word-display" id="wordDisplay">_ _ _ _</div>
+                            <div class="game-status-text" id="gameStatus">Get ready!</div>
+                            <div class="game-status-text" id="timerDisplay">⏱️ 60s</div>
+                        </div>
+
+                        <!-- Enhanced Drawing Tools -->
+                        <div class="drawing-tools">
+                            <div class="tool-section">
+                                <span class="tool-label">🎨 Colors</span>
+                                <div class="color-palette">
+                                    <!-- Row 1 - Basic Colors -->
+                                    <div class="color-picker selected" style="background: #000000;" onclick="selectColor('#000000', this)"></div>
+                                    <div class="color-picker" style="background: #FFFFFF; border: 2px solid #1a508b;" onclick="selectColor('#FFFFFF', this)"></div>
+                                    <div class="color-picker" style="background: #C0C0C0;" onclick="selectColor('#C0C0C0', this)"></div>
+                                    <div class="color-picker" style="background: #808080;" onclick="selectColor('#808080', this)"></div>
+                                    <div class="color-picker" style="background: #800000;" onclick="selectColor('#800000', this)"></div>
+                                    <div class="color-picker" style="background: #FF0000;" onclick="selectColor('#FF0000', this)"></div>
+                                    <div class="color-picker" style="background: #800080;" onclick="selectColor('#800080', this)"></div>
+                                    <div class="color-picker" style="background: #FF00FF;" onclick="selectColor('#FF00FF', this)"></div>
+                                    <div class="color-picker" style="background: #008000;" onclick="selectColor('#008000', this)"></div>
+                                    <div class="color-picker" style="background: #00FF00;" onclick="selectColor('#00FF00', this)"></div>
+                                    
+                                    <!-- Row 2 - More Colors -->
+                                    <div class="color-picker" style="background: #808000;" onclick="selectColor('#808000', this)"></div>
+                                    <div class="color-picker" style="background: #FFFF00;" onclick="selectColor('#FFFF00', this)"></div>
+                                    <div class="color-picker" style="background: #000080;" onclick="selectColor('#000080', this)"></div>
+                                    <div class="color-picker" style="background: #0000FF;" onclick="selectColor('#0000FF', this)"></div>
+                                    <div class="color-picker" style="background: #008080;" onclick="selectColor('#008080', this)"></div>
+                                    <div class="color-picker" style="background: #00FFFF;" onclick="selectColor('#00FFFF', this)"></div>
+                                    <div class="color-picker" style="background: #FFA500;" onclick="selectColor('#FFA500', this)"></div>
+                                    <div class="color-picker" style="background: #FF6347;" onclick="selectColor('#FF6347', this)"></div>
+                                    <div class="color-picker" style="background: #FFB6C1;" onclick="selectColor('#FFB6C1', this)"></div>
+                                    <div class="color-picker" style="background: #DDA0DD;" onclick="selectColor('#DDA0DD', this)"></div>
+                                    
+                                    <!-- Row 3 - Extended Palette -->
+                                    <div class="color-picker" style="background: #8B4513;" onclick="selectColor('#8B4513', this)"></div>
+                                    <div class="color-picker" style="background: #A0522D;" onclick="selectColor('#A0522D', this)"></div>
+                                    <div class="color-picker" style="background: #D2691E;" onclick="selectColor('#D2691E', this)"></div>
+                                    <div class="color-picker" style="background: #F4A460;" onclick="selectColor('#F4A460', this)"></div>
+                                    <div class="color-picker" style="background: #90EE90;" onclick="selectColor('#90EE90', this)"></div>
+                                    <div class="color-picker" style="background: #98FB98;" onclick="selectColor('#98FB98', this)"></div>
+                                    <div class="color-picker" style="background: #87CEEB;" onclick="selectColor('#87CEEB', this)"></div>
+                                    <div class="color-picker" style="background: #4169E1;" onclick="selectColor('#4169E1', this)"></div>
+                                    <div class="color-picker" style="background: #9370DB;" onclick="selectColor('#9370DB', this)"></div>
+                                    <div class="color-picker" style="background: #FF1493;" onclick="selectColor('#FF1493', this)"></div>
+                                </div>
+                            </div>
+
+                            <div class="tool-section">
+                                <span class="tool-label">🖌️ Brush Size</span>
+                                <div class="slider-container">
+                                    <div class="brush-preview">
+                                        <div class="brush-preview-dot" id="brushPreview" style="width: 6px; height: 6px;"></div>
+                                    </div>
+                                    <input type="range" min="2" max="50" value="6" class="brush-slider" id="brushSlider">
+                                    <span class="brush-size-label" id="brushSizeLabel">6</span>
+                                </div>
+                            </div>
+
+                            <div class="tool-section" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <button class="eraser-btn" id="eraserBtn" onclick="toggleEraser()">🧹 Eraser</button>
+                                <button class="clear-btn" onclick="clearCanvas()">🗑️ Clear</button>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="gameArea" class="hidden">
-                        <div class="word-display" id="wordDisplay">_ _ _ _</div>
-                        <canvas id="canvas" width="800" height="600"></canvas>
-                        <div class="drawing-tools">
-                            <div class="color-btn" style="background: black;" onclick="selectColor('black')"></div>
-                            <div class="color-btn" style="background: red;" onclick="selectColor('red')"></div>
-                            <div class="color-btn" style="background: blue;" onclick="selectColor('blue')"></div>
-                            <div class="color-btn" style="background: green;" onclick="selectColor('green')"></div>
-                            <div class="color-btn" style="background: yellow;" onclick="selectColor('yellow')"></div>
-                            <div class="color-btn" style="background: orange;" onclick="selectColor('orange')"></div>
-                            <div class="color-btn" style="background: purple;" onclick="selectColor('purple')"></div>
-                            <div class="color-btn" style="background: brown;" onclick="selectColor('brown')"></div>
-                            <button class="btn btn-secondary" onclick="clearCanvas()" style="width: auto;">Clear</button>
+                        <div class="canvas-container">
+                            <canvas id="canvas" width="800" height="600"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <div class="sidebar">
+                <div class="game-sidebar">
                     <div class="players-panel">
-                        <div class="panel-title">Players</div>
-                        <div id="playersList"></div>
+                        <div class="panel-header">👥 Players</div>
+                        <div class="players-list" id="playersList">
+                            <div class="player-item">
+                                <span>Loading...</span>
+                                <span>0 pts</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="chat-panel">
-                        <div class="panel-title">Chat</div>
+                        <div class="panel-header">💬 Chat</div>
                         <div class="chat-messages" id="chatMessages"></div>
-                        <div class="chat-input">
-                            <input type="text" id="chatInput" placeholder="Type your guess..." maxlength="50">
-                            <button class="btn btn-primary" onclick="sendMessage()" style="width: auto; padding: 10px 20px;">Send</button>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="Type your guess...">
+                            <button class="send-btn" onclick="sendMessage()">Send</button>
                         </div>
                     </div>
                 </div>
@@ -509,41 +887,45 @@
                 <div class="modal-header">Create New Room</div>
                 <div class="form-group">
                     <label>Room Name</label>
-                    <input type="text" id="roomName" placeholder="My Awesome Room" maxlength="30">
+                    <input type="text" id="roomName" placeholder="Enter room name...">
                 </div>
                 <div class="form-group">
                     <label>Max Players</label>
                     <select id="maxPlayers">
-                        <option value="4">4 Players</option>
-                        <option value="6">6 Players</option>
-                        <option value="8" selected>8 Players</option>
-                        <option value="10">10 Players</option>
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="6" selected>6</option>
+                        <option value="8">8</option>
+                        <option value="10">10</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Rounds</label>
                     <select id="maxRounds">
-                        <option value="3" selected>3 Rounds</option>
-                        <option value="5">5 Rounds</option>
-                        <option value="7">7 Rounds</option>
-                        <option value="10">10 Rounds</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Draw Time (seconds)</label>
                     <select id="drawTime">
-                        <option value="45">45 seconds</option>
-                        <option value="60" selected>60 seconds</option>
-                        <option value="90">90 seconds</option>
-                        <option value="120">120 seconds</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                        <option value="60" selected>60</option>
+                        <option value="90">90</option>
+                        <option value="120">120</option>
                     </select>
                 </div>
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="isPublic" checked>
-                    <label>Public Room (anyone can join)</label>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="isPublic" checked>
+                        <label style="margin: 0;">Public Room</label>
+                    </div>
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button class="btn btn-primary" onclick="createRoom()">Create Room</button>
+                    <button class="btn btn-primary" onclick="createRoom()">Create</button>
                     <button class="btn btn-secondary" onclick="hideCreateRoomModal()">Cancel</button>
                 </div>
             </div>
@@ -555,7 +937,7 @@
                 <div class="modal-header">Join Private Room</div>
                 <div class="form-group">
                     <label>Room Code</label>
-                    <input type="text" id="privateRoomCode" placeholder="Enter 6-digit code" maxlength="6">
+                    <input type="text" id="privateRoomCode" placeholder="Enter 6-digit code..." maxlength="6" style="text-transform: uppercase;">
                 </div>
                 <div style="display: flex; gap: 10px;">
                     <button class="btn btn-primary" onclick="joinPrivateRoom()">Join</button>
@@ -571,12 +953,30 @@
         let currentRoom = null;
         let isHost = false;
         let canDraw = false;
-        let currentColor = 'black';
+        let currentColor = '#000000';
+        let brushSize = 6;
+        let isEraser = false;
 
         // Canvas setup
         const canvas = document.getElementById('canvas');
         const ctx = canvas ? canvas.getContext('2d') : null;
         let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        // Brush slider
+        const brushSlider = document.getElementById('brushSlider');
+        const brushSizeLabel = document.getElementById('brushSizeLabel');
+        const brushPreview = document.getElementById('brushPreview');
+
+        if (brushSlider) {
+            brushSlider.addEventListener('input', (e) => {
+                brushSize = parseInt(e.target.value);
+                brushSizeLabel.textContent = brushSize;
+                brushPreview.style.width = brushSize + 'px';
+                brushPreview.style.height = brushSize + 'px';
+            });
+        }
 
         // Username
         function setUsername() {
@@ -668,12 +1068,29 @@
         function filterRooms(filter) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            // Filter logic handled by socket
         }
 
         // Drawing functions
-        function selectColor(color) {
+        function selectColor(color, element) {
             currentColor = color;
+            isEraser = false;
+            document.getElementById('eraserBtn').classList.remove('active');
+            document.querySelectorAll('.color-picker').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            brushPreview.style.background = color;
+        }
+
+        function toggleEraser() {
+            isEraser = !isEraser;
+            const eraserBtn = document.getElementById('eraserBtn');
+            if (isEraser) {
+                eraserBtn.classList.add('active');
+                document.querySelectorAll('.color-picker').forEach(el => el.classList.remove('selected'));
+                brushPreview.style.background = '#FFFFFF';
+            } else {
+                eraserBtn.classList.remove('active');
+                brushPreview.style.background = currentColor;
+            }
         }
 
         function clearCanvas() {
@@ -758,6 +1175,15 @@
             if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
         });
 
+        socket.on('timer-update', (data) => {
+            document.getElementById('timerDisplay').textContent = `⏱️ ${data.timeLeft}s`;
+        });
+
+        socket.on('round-ended', (data) => {
+            document.getElementById('wordDisplay').textContent = `Word was: ${data.word}`;
+            canDraw = false;
+        });
+
         socket.on('chat-message', (data) => {
             const chat = document.getElementById('chatMessages');
             const div = document.createElement('div');
@@ -765,6 +1191,10 @@
             div.textContent = `${data.username}: ${data.message}`;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
+        });
+
+        socket.on('error', (data) => {
+            alert(data.message);
         });
 
         function updatePlayersList(players) {
@@ -777,14 +1207,17 @@
             `).join('');
         }
 
-        // Canvas drawing
+        // Canvas drawing with smooth lines
         if (canvas) {
             canvas.addEventListener('mousedown', (e) => {
                 if (!canDraw) return;
                 isDrawing = true;
                 const rect = canvas.getBoundingClientRect();
+                lastX = e.clientX - rect.left;
+                lastY = e.clientY - rect.top;
+                
                 ctx.beginPath();
-                ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+                ctx.moveTo(lastX, lastY);
             });
 
             canvas.addEventListener('mousemove', (e) => {
@@ -792,12 +1225,25 @@
                 const rect = canvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
+                
                 ctx.lineTo(x, y);
-                ctx.strokeStyle = currentColor;
-                ctx.lineWidth = 3;
+                ctx.strokeStyle = isEraser ? '#FFFFFF' : currentColor;
+                ctx.lineWidth = brushSize;
                 ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
                 ctx.stroke();
-                socket.emit('draw', { x, y, color: currentColor });
+                
+                socket.emit('draw', { 
+                    x1: lastX, 
+                    y1: lastY, 
+                    x2: x, 
+                    y2: y, 
+                    color: isEraser ? '#FFFFFF' : currentColor,
+                    size: brushSize
+                });
+                
+                lastX = x;
+                lastY = y;
             });
 
             canvas.addEventListener('mouseup', () => {
@@ -811,10 +1257,13 @@
 
         socket.on('draw', (data) => {
             if (ctx) {
-                ctx.lineTo(data.x, data.y);
+                ctx.beginPath();
+                ctx.moveTo(data.x1, data.y1);
+                ctx.lineTo(data.x2, data.y2);
                 ctx.strokeStyle = data.color;
-                ctx.lineWidth = 3;
+                ctx.lineWidth = data.size;
                 ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
                 ctx.stroke();
             }
         });
