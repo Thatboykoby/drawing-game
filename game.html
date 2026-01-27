@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draw & Guess - Multiplayer Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1200px;
+            width: 100%;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .info-box {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .canvas-container {
+            position: relative;
+        }
+
+        canvas {
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            cursor: crosshair;
+            background: white;
+            display: block;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .tools {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color-picker {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .color-picker:hover {
+            transform: scale(1.1);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .players-box, .chat-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .box-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .players-list {
+            list-style: none;
+        }
+
+        .player-item {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .player-drawing {
+            background: #ffd700;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            background: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chat-message {
+            margin-bottom: 8px;
+            padding: 5px;
+            border-radius: 3px;
+        }
+
+        .correct-guess {
+            background: #48bb78;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .word-display {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            letter-spacing: 5px;
+        }
+
+        #joinScreen {
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #joinScreen input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .game-area {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="joinScreen">
+            <h1>🎨 Draw & Guess</h1>
+            <p style="margin: 20px 0; color: #666;">Join a game room and play with your friends!</p>
+            <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+            <input type="text" id="roomCode" placeholder="Room code (leave empty for new room)" maxlength="10">
+            <button class="btn btn-primary" onclick="joinGame()" style="width: 100%; margin-top: 10px;">Join Game</button>
+        </div>
+
+        <div id="gameScreen" class="hidden">
+            <h1>🎨 Draw & Guess</h1>
+            
+            <div class="game-info">
+                <div class="info-box">
+                    <div class="info-label">Room Code</div>
+                    <div class="info-value" id="roomCodeDisplay">-</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Round</div>
+                    <div class="info-value" id="roundDisplay">1/3</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Time Left</div>
+                    <div class="info-value" id="timerDisplay">60s</div>
+                </div>
+            </div>
+
+            <div class="word-display" id="wordDisplay">Waiting for game to start...</div>
+
+            <div class="game-area">
+                <div class="canvas-container">
+                    <canvas id="canvas" width="800" height="600"></canvas>
+                    <div class="tools">
+                        <div class="color-picker" style="background: black;" onclick="selectColor('black')"></div>
+                        <div class="color-picker" style="background: red;" onclick="selectColor('red')"></div>
+                        <div class="color-picker" style="background: blue;" onclick="selectColor('blue')"></div>
+                        <div class="color-picker" style="background: green;" onclick="selectColor('green')"></div>
+                        <div class="color-picker" style="background: yellow;" onclick="selectColor('yellow')"></div>
+                        <div class="color-picker" style="background: orange;" onclick="selectColor('orange')"></div>
+                        <div class="color-picker" style="background: purple;" onclick="selectColor('purple')"></div>
+                        <div class="color-picker" style="background: brown;" onclick="selectColor('brown')"></div>
+                        <button class="btn btn-danger" onclick="clearCanvas()">Clear Canvas</button>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="players-box">
+                        <div class="box-title">Players</div>
+                        <ul class="players-list" id="playersList"></ul>
+                    </div>
+
+                    <div class="chat-box">
+                        <div class="box-title">Chat</div>
+                        <div class="chat-messages" id="chatMessages"></div>
+                        <div class="chat-input">
+                            <input type="text" id="guessInput" placeholder="Type your guess..." maxlength="50">
+                            <button class="btn btn-primary" onclick="sendGuess()">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let gameState = {
+            playerName: '',
+            roomCode: '',
+            players: [],
+            currentDrawer: '',
+            currentWord: '',
+            isDrawing: false,
+            round: 1,
+            maxRounds: 3,
+            timeLeft: 60,
+            canDraw: false
+        };
+
+        // Canvas setup
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let isMouseDown = false;
+        let currentColor = 'black';
+
+        // Simulated multiplayer (for demo - replace with real WebSocket in production)
+        let simulatedPlayers = [];
+
+        function joinGame() {
+            const name = document.getElementById('playerName').value.trim();
+            const room = document.getElementById('roomCode').value.trim() || generateRoomCode();
+
+            if (!name) {
+                alert('Please enter your name!');
+                return;
+            }
+
+            gameState.playerName = name;
+            gameState.roomCode = room;
+
+            // Simulate joining
+            simulatedPlayers.push({
+                name: name,
+                score: 0,
+                isDrawing: simulatedPlayers.length === 0
+            });
+
+            // Add some bot players for demo
+            if (simulatedPlayers.length === 1) {
+                simulatedPlayers.push({ name: 'Player 2', score: 0, isDrawing: false });
+                simulatedPlayers.push({ name: 'Player 3', score: 0, isDrawing: false });
+            }
+
+            gameState.players = simulatedPlayers;
+            gameState.currentDrawer = simulatedPlayers[0].name;
+            gameState.canDraw = (gameState.currentDrawer === gameState.playerName);
+
+            document.getElementById('joinScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            document.getElementById('roomCodeDisplay').textContent = room;
+
+            startRound();
+        }
+
+        function generateRoomCode() {
+            return Math.random().toString(36).substring(2, 8).toUpperCase();
+        }
+
+        function startRound() {
+            const words = ['CAT', 'HOUSE', 'TREE', 'CAR', 'PIZZA', 'SUN', 'FLOWER', 'FISH', 'AIRPLANE', 'GUITAR'];
+            gameState.currentWord = words[Math.floor(Math.random() * words.length)];
+            gameState.timeLeft = 60;
+
+            updateWordDisplay();
+            updatePlayersList();
+            startTimer();
+        }
+
+        function updateWordDisplay() {
+            const display = document.getElementById('wordDisplay');
+            if (gameState.canDraw) {
+                display.textContent = `Draw: ${gameState.currentWord}`;
+                display.style.background = '#ffd700';
+            } else {
+                display.textContent = '_ '.repeat(gameState.currentWord.length);
+                display.style.background = '#f8f9fa';
+            }
+        }
+
+        function updatePlayersList() {
+            const list = document.getElementById('playersList');
+            list.innerHTML = '';
+            gameState.players.forEach(player => {
+                const li = document.createElement('li');
+                li.className = 'player-item';
+                if (player.name === gameState.currentDrawer) {
+                    li.classList.add('player-drawing');
+                }
+                li.innerHTML = `
+                    <span>${player.name} ${player.name === gameState.currentDrawer ? '✏️' : ''}</span>
+                    <span>${player.score} pts</span>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        function startTimer() {
+            const timer = setInterval(() => {
+                gameState.timeLeft--;
+                document.getElementById('timerDisplay').textContent = `${gameState.timeLeft}s`;
+
+                if (gameState.timeLeft <= 0) {
+                    clearInterval(timer);
+                    endRound();
+                }
+            }, 1000);
+        }
+
+        function endRound() {
+            addChatMessage(`Time's up! The word was: ${gameState.currentWord}`, 'system');
+            
+            setTimeout(() => {
+                gameState.round++;
+                if (gameState.round > gameState.maxRounds) {
+                    endGame();
+                } else {
+                    document.getElementById('roundDisplay').textContent = `${gameState.round}/${gameState.maxRounds}`;
+                    // Rotate drawer
+                    const currentIndex = gameState.players.findIndex(p => p.name === gameState.currentDrawer);
+                    const nextIndex = (currentIndex + 1) % gameState.players.length;
+                    gameState.currentDrawer = gameState.players[nextIndex].name;
+                    gameState.canDraw = (gameState.currentDrawer === gameState.playerName);
+                    clearCanvas();
+                    startRound();
+                }
+            }, 3000);
+        }
+
+        function endGame() {
+            const winner = gameState.players.reduce((prev, current) => 
+                (prev.score > current.score) ? prev : current
+            );
+            document.getElementById('wordDisplay').textContent = `🎉 ${winner.name} wins with ${winner.score} points!`;
+        }
+
+        function sendGuess() {
+            const input = document.getElementById('guessInput');
+            const guess = input.value.trim().toUpperCase();
+            
+            if (!guess || gameState.canDraw) return;
+
+            addChatMessage(`${gameState.playerName}: ${guess}`);
+
+            if (guess === gameState.currentWord) {
+                const points = Math.max(10, gameState.timeLeft);
+                gameState.players.find(p => p.name === gameState.playerName).score += points;
+                addChatMessage(`🎉 ${gameState.playerName} guessed it! +${points} points`, 'correct');
+                updatePlayersList();
+            }
+
+            input.value = '';
+        }
+
+        function addChatMessage(message, type = 'normal') {
+            const chat = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `chat-message ${type === 'correct' ? 'correct-guess' : ''}`;
+            div.textContent = message;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // Canvas drawing functions
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        function startDrawing(e) {
+            if (!gameState.canDraw) return;
+            isMouseDown = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function draw(e) {
+            if (!isMouseDown || !gameState.canDraw) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isMouseDown = false;
+        }
+
+        function selectColor(color) {
+            currentColor = color;
+        }
+
+        function clearCanvas() {
+            if (!gameState.canDraw) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Allow enter key for guessing
+        document.getElementById('guessInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendGuess();
+        });
+
+        // Allow enter key for joining
+        document.getElementById('roomCode').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') joinGame();
+        });
+    </script>
+</body>
+</html>
