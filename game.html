@@ -1420,8 +1420,20 @@
                 isDrawing = false;
             });
 
-            canvas.addEventListener('mouseleave', () => {
+            // Listen for mouseup anywhere on the page to stop drawing
+            document.addEventListener('mouseup', () => {
                 isDrawing = false;
+            });
+
+            // Continue drawing when mouse re-enters canvas (if button still held)
+            canvas.addEventListener('mouseenter', (e) => {
+                // Check if mouse button is still pressed when entering
+                if (e.buttons === 1 && canDraw) {
+                    const pos = getMousePos(e);
+                    lastX = pos.x;
+                    lastY = pos.y;
+                    isDrawing = true;
+                }
             });
         }
 
