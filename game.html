@@ -645,7 +645,7 @@
             cursor: crosshair;
             width: 100%;
             height: 100%;
-            touch-action: none;
+            background: white;
         }
 
         /* Sidebar */
@@ -956,7 +956,7 @@
                         </div>
 
                         <div class="canvas-container">
-                            <canvas id="drawingCanvas"></canvas>
+                            <canvas id="drawingCanvas" width="1200" height="700"></canvas>
                         </div>
                     </div>
                 </div>
@@ -1129,18 +1129,6 @@
         // Initialize on load
         if (canvas) {
             initColorPicker();
-            
-            // Set canvas size based on container
-            function initCanvas() {
-                const container = canvas.parentElement;
-                const rect = container.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
-                console.log('Canvas initialized:', canvas.width, 'x', canvas.height);
-            }
-            
-            // Wait for DOM to be ready, then initialize
-            setTimeout(initCanvas, 100);
         }
 
         // Screen management
@@ -1382,12 +1370,14 @@
 
         // Canvas drawing with smooth lines
         if (canvas) {
-            // Helper function to get mouse position
+            // Helper function to get mouse position with proper scaling
             function getMousePos(e) {
                 const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
                 return {
-                    x: e.clientX - rect.left,
-                    y: e.clientY - rect.top
+                    x: (e.clientX - rect.left) * scaleX,
+                    y: (e.clientY - rect.top) * scaleY
                 };
             }
 
@@ -1431,10 +1421,6 @@
             });
 
             canvas.addEventListener('mouseleave', () => {
-                isDrawing = false;
-            });
-
-            document.addEventListener('mouseup', () => {
                 isDrawing = false;
             });
         }
