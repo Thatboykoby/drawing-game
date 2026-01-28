@@ -430,6 +430,7 @@
             gap: 12px;
             margin-bottom: 12px;
             flex-wrap: wrap;
+            position: relative;
         }
 
         .tools-label {
@@ -461,6 +462,124 @@
         .color-picker.selected {
             border-color: #58a6ff;
             box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.3);
+        }
+
+        /* Color Picker Button */
+        .color-picker-btn {
+            width: 40px;
+            height: 32px;
+            border-radius: 6px;
+            border: 2px solid #30363d;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s;
+            background: linear-gradient(135deg, 
+                red 0%, red 16.66%, 
+                orange 16.66%, orange 33.33%,
+                yellow 33.33%, yellow 50%,
+                green 50%, green 66.66%,
+                blue 66.66%, blue 83.33%,
+                purple 83.33%, purple 100%);
+        }
+
+        .color-picker-btn:hover {
+            transform: scale(1.05);
+            border-color: #58a6ff;
+        }
+
+        .color-picker-btn::after {
+            content: '🎨';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            text-shadow: 0 0 3px rgba(0,0,0,0.5);
+        }
+
+        /* Color Picker Dropdown */
+        .color-picker-dropdown {
+            position: absolute;
+            top: 45px;
+            left: 0;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 12px;
+            z-index: 100;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            display: none;
+        }
+
+        .color-picker-dropdown.active {
+            display: block;
+        }
+
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 28px);
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+
+        .color-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.15s;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.15);
+            border-color: #58a6ff;
+        }
+
+        .custom-color-section {
+            border-top: 1px solid #30363d;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+
+        .custom-color-label {
+            color: #7d8590;
+            font-size: 0.8em;
+            margin-bottom: 6px;
+        }
+
+        .custom-color-input {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        #customColorPicker {
+            width: 50px;
+            height: 32px;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        #customColorValue {
+            flex: 1;
+            padding: 6px 8px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            color: #e6edf3;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        .current-color-display {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 2px solid #30363d;
+            box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
         }
 
         .brush-controls {
@@ -525,9 +644,8 @@
             cursor: crosshair;
             max-width: 100%;
             max-height: 100%;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            width: auto;
+            height: auto;
         }
 
         /* Sidebar */
@@ -811,20 +929,20 @@
                     <!-- Game Area -->
                     <div id="gameArea" class="drawing-area hidden">
                         <div class="drawing-tools">
-                            <span class="tools-label">🎨 Colors:</span>
-                            <div class="color-palette">
-                                <div class="color-picker selected" style="background: #000000;" onclick="selectColor('#000000', this)"></div>
-                                <div class="color-picker" style="background: #666666;" onclick="selectColor('#666666', this)"></div>
-                                <div class="color-picker" style="background: #8B0000;" onclick="selectColor('#8B0000', this)"></div>
-                                <div class="color-picker" style="background: #FF0000;" onclick="selectColor('#FF0000', this)"></div>
-                                <div class="color-picker" style="background: #800080;" onclick="selectColor('#800080', this)"></div>
-                                <div class="color-picker" style="background: #FF00FF;" onclick="selectColor('#FF00FF', this)"></div>
-                                <div class="color-picker" style="background: #00FF00;" onclick="selectColor('#00FF00', this)"></div>
-                                <div class="color-picker" style="background: #00FFFF;" onclick="selectColor('#00FFFF', this)"></div>
-                                <div class="color-picker" style="background: #0000FF;" onclick="selectColor('#0000FF', this)"></div>
-                                <div class="color-picker" style="background: #FFFF00;" onclick="selectColor('#FFFF00', this)"></div>
-                                <div class="color-picker" style="background: #FFA500;" onclick="selectColor('#FFA500', this)"></div>
-                                <div class="color-picker" style="background: #A52A2A;" onclick="selectColor('#A52A2A', this)"></div>
+                            <span class="tools-label">🎨 Color:</span>
+                            <div class="current-color-display" id="currentColorDisplay" style="background: #000000;"></div>
+                            <div class="color-picker-btn" onclick="toggleColorPicker()"></div>
+                            
+                            <!-- Color Picker Dropdown -->
+                            <div class="color-picker-dropdown" id="colorPickerDropdown">
+                                <div class="color-picker-grid" id="colorGrid"></div>
+                                <div class="custom-color-section">
+                                    <div class="custom-color-label">Custom Color</div>
+                                    <div class="custom-color-input">
+                                        <input type="color" id="customColorPicker" value="#000000">
+                                        <input type="text" id="customColorValue" value="#000000" maxlength="7">
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="brush-controls">
@@ -925,12 +1043,92 @@
         let brushSize = 3;
         let isEraser = false;
 
+        // Initialize color picker
+        function initColorPicker() {
+            const colors = [
+                // Reds
+                '#FF0000', '#DC143C', '#8B0000', '#CD5C5C', '#F08080', '#FA8072', '#FF6347', '#FF4500', '#FF1493', '#C71585', '#DB7093', '#FFB6C1',
+                // Oranges & Yellows
+                '#FFA500', '#FF8C00', '#FF7F50', '#FF6347', '#FFD700', '#FFFF00', '#FFFFE0', '#FFFACD', '#FAFAD2', '#FFE4B5', '#FFDAB9', '#EEE8AA',
+                // Greens
+                '#00FF00', '#00FA9A', '#00FF7F', '#90EE90', '#98FB98', '#8FBC8F', '#32CD32', '#00FF00', '#228B22', '#008000', '#006400', '#556B2F',
+                // Cyans & Blues
+                '#00FFFF', '#E0FFFF', '#AFEEEE', '#7FFFD4', '#40E0D0', '#48D1CC', '#00CED1', '#5F9EA0', '#4682B4', '#0000FF', '#0000CD', '#00008B',
+                // Purples & Pinks
+                '#800080', '#8B008B', '#9370DB', '#9932CC', '#BA55D3', '#DA70D6', '#DDA0DD', '#EE82EE', '#FF00FF', '#FF69B4', '#FFB6C1', '#FFC0CB',
+                // Browns & Grays
+                '#A52A2A', '#8B4513', '#D2691E', '#CD853F', '#F4A460', '#DEB887', '#D2B48C', '#BC8F8F', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3',
+                // Black & White
+                '#000000', '#2F4F4F', '#696969', '#708090', '#778899', '#BEBEBE', '#DCDCDC', '#F5F5F5', '#FFFFFF', '#FFFAF0', '#FFF5EE', '#FAF0E6'
+            ];
+
+            const colorGrid = document.getElementById('colorGrid');
+            colors.forEach(color => {
+                const swatch = document.createElement('div');
+                swatch.className = 'color-swatch';
+                swatch.style.background = color;
+                swatch.onclick = () => selectColorFromPicker(color);
+                colorGrid.appendChild(swatch);
+            });
+
+            // Custom color picker
+            const customPicker = document.getElementById('customColorPicker');
+            const customValue = document.getElementById('customColorValue');
+
+            customPicker.addEventListener('input', (e) => {
+                const color = e.target.value;
+                customValue.value = color;
+                selectColorFromPicker(color);
+            });
+
+            customValue.addEventListener('input', (e) => {
+                let color = e.target.value;
+                if (color.startsWith('#') && (color.length === 7 || color.length === 4)) {
+                    customPicker.value = color;
+                    selectColorFromPicker(color);
+                }
+            });
+        }
+
+        function toggleColorPicker() {
+            const dropdown = document.getElementById('colorPickerDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function selectColorFromPicker(color) {
+            currentColor = color;
+            isEraser = false;
+            document.getElementById('eraserBtn').classList.remove('active');
+            document.getElementById('currentColorDisplay').style.background = color;
+            document.getElementById('customColorPicker').value = color;
+            document.getElementById('customColorValue').value = color.toUpperCase();
+            // Close picker after selection
+            document.getElementById('colorPickerDropdown').classList.remove('active');
+        }
+
+        // Close color picker when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('colorPickerDropdown');
+            const pickerBtn = document.querySelector('.color-picker-btn');
+            const currentColorDisplay = document.getElementById('currentColorDisplay');
+            
+            if (dropdown && !dropdown.contains(e.target) && 
+                e.target !== pickerBtn && e.target !== currentColorDisplay) {
+                dropdown.classList.remove('active');
+            }
+        });
+
         // Get brush size from slider
         const brushSlider = document.getElementById('brushSize');
         if (brushSlider) {
             brushSlider.addEventListener('input', (e) => {
                 brushSize = parseInt(e.target.value);
             });
+        }
+
+        // Initialize on load
+        if (canvas) {
+            initColorPicker();
         }
 
         // Screen management
@@ -1030,22 +1228,15 @@
         }
 
         // Drawing functions
-        function selectColor(color, element) {
-            currentColor = color;
-            isEraser = false;
-            document.getElementById('eraserBtn').classList.remove('active');
-            document.querySelectorAll('.color-picker').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-
         function toggleEraser() {
             isEraser = !isEraser;
             const eraserBtn = document.getElementById('eraserBtn');
             if (isEraser) {
                 eraserBtn.classList.add('active');
-                document.querySelectorAll('.color-picker').forEach(el => el.classList.remove('selected'));
+                document.getElementById('currentColorDisplay').style.background = '#FFFFFF';
             } else {
                 eraserBtn.classList.remove('active');
+                document.getElementById('currentColorDisplay').style.background = currentColor;
             }
         }
 
