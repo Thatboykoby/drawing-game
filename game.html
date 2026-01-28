@@ -1130,33 +1130,17 @@
         if (canvas) {
             initColorPicker();
             
-            // Resize canvas to fill container
-            function resizeCanvas() {
+            // Set canvas size based on container
+            function initCanvas() {
                 const container = canvas.parentElement;
                 const rect = container.getBoundingClientRect();
-                // Only resize if dimensions actually changed to avoid clearing canvas
-                if (canvas.width !== rect.width || canvas.height !== rect.height) {
-                    // Store current drawing
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    canvas.width = rect.width;
-                    canvas.height = rect.height;
-                    // Restore drawing
-                    ctx.putImageData(imageData, 0, 0);
-                }
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                console.log('Canvas initialized:', canvas.width, 'x', canvas.height);
             }
             
-            // Set initial size
-            const container = canvas.parentElement;
-            const rect = container.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
-            
-            // Only resize on actual window resize, not constantly
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(resizeCanvas, 250);
-            });
+            // Wait for DOM to be ready, then initialize
+            setTimeout(initCanvas, 100);
         }
 
         // Screen management
@@ -1352,6 +1336,18 @@
             }
         });
 
+        socket.on('hint-revealed', (data) => {
+            document.getElementById('wordDisplay').textContent = data.word;
+            const chat = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'chat-message';
+            div.style.color = '#58a6ff';
+            div.style.fontStyle = 'italic';
+            div.textContent = '💡 Hint: A letter was revealed!';
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        });
+
         socket.on('timer-update', (data) => {
             document.getElementById('timerDisplay').textContent = `⏱️ ${data.timeLeft}s`;
         });
@@ -1389,32 +1385,25 @@
             // Helper function to get mouse position
             function getMousePos(e) {
                 const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                // Clamp coordinates to canvas bounds
                 return {
-                    x: Math.max(0, Math.min(canvas.width, x)),
-                    y: Math.max(0, Math.min(canvas.height, y))
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
                 };
             }
 
             canvas.addEventListener('mousedown', (e) => {
-                if (!canDraw || !ctx) return;
-                e.preventDefault();
+                if (!canDraw) return;
                 isDrawing = true;
                 const pos = getMousePos(e);
                 lastX = pos.x;
                 lastY = pos.y;
-                
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
             });
 
             canvas.addEventListener('mousemove', (e) => {
-                if (!isDrawing || !canDraw || !ctx) return;
-                e.preventDefault();
+                if (!isDrawing || !canDraw) return;
                 const pos = getMousePos(e);
                 
+                // Draw line
                 ctx.beginPath();
                 ctx.moveTo(lastX, lastY);
                 ctx.lineTo(pos.x, pos.y);
@@ -1441,7 +1430,10 @@
                 isDrawing = false;
             });
 
-            // Don't stop drawing when mouse leaves canvas - keep drawing if button is held
+            canvas.addEventListener('mouseleave', () => {
+                isDrawing = false;
+            });
+
             document.addEventListener('mouseup', () => {
                 isDrawing = false;
             });

@@ -79,7 +79,9 @@ io.on('connection', (socket) => {
             currentDrawerIndex: 0,
             currentWord: '',
             timeLeft: 0,
-            timer: null
+            timer: null,
+            hintTimer: null,
+            revealedLetters: []
         };
 
         rooms.set(code, room);
@@ -162,6 +164,7 @@ io.on('connection', (socket) => {
         if (room.players.length === 0) {
             // Delete empty room
             if (room.timer) clearInterval(room.timer);
+            if (room.hintTimer) clearInterval(room.hintTimer);
             rooms.delete(roomCode);
         } else {
             // Assign new host if needed
@@ -208,8 +211,9 @@ io.on('connection', (socket) => {
         if (!player) return;
 
         // Check if it's the correct answer
-        if (room.status === 'playing' && !player.isDrawing) {
+        if (room.status === 'playing' && !player.isDrawing && !player.hasGuessed) {
             if (message.toUpperCase() === room.currentWord) {
+                player.hasGuessed = true;
                 player.score += Math.max(10, room.timeLeft * 2);
                 
                 io.to(roomCode).emit('chat-message', {
@@ -224,7 +228,7 @@ io.on('connection', (socket) => {
 
                 // Check if all players guessed
                 const allGuessed = room.players.every(p => 
-                    p.isDrawing || p.hasGuessed || p.id === socket.id
+                    p.isDrawing || p.hasGuessed
                 );
 
                 if (allGuessed) {
@@ -270,6 +274,7 @@ io.on('connection', (socket) => {
 
                 if (room.players.length === 0) {
                     if (room.timer) clearInterval(room.timer);
+                    if (room.hintTimer) clearInterval(room.hintTimer);
                     rooms.delete(roomCode);
                 } else {
                     if (room.host === socket.id) {
@@ -290,6 +295,50 @@ io.on('connection', (socket) => {
     });
 });
 
+function getHintWord(word, revealedIndices) {
+    let hint = '';
+    for (let i = 0; i < word.length; i++) {
+        if (revealedIndices.includes(i)) {
+            hint += word[i] + ' ';
+        } else {
+            hint += '_ ';
+        }
+    }
+    return hint.trim();
+}
+
+function revealHint(roomCode) {
+    const room = rooms.get(roomCode);
+    if (!room || room.status !== 'playing') return;
+
+    // Get unrevealed letter positions
+    const word = room.currentWord;
+    const unrevealedIndices = [];
+    for (let i = 0; i < word.length; i++) {
+        if (!room.revealedLetters.includes(i)) {
+            unrevealedIndices.push(i);
+        }
+    }
+
+    // Reveal a random letter if any left
+    if (unrevealedIndices.length > 0) {
+        const randomIndex = unrevealedIndices[Math.floor(Math.random() * unrevealedIndices.length)];
+        room.revealedLetters.push(randomIndex);
+
+        const hintWord = getHintWord(word, room.revealedLetters);
+
+        // Send hint to guessers only
+        room.players.forEach(player => {
+            if (!player.isDrawing) {
+                const socket = io.sockets.sockets.get(player.id);
+                if (socket) {
+                    socket.emit('hint-revealed', { word: hintWord });
+                }
+            }
+        });
+    }
+}
+
 function startRound(roomCode) {
     const room = rooms.get(roomCode);
     if (!room) return;
@@ -298,6 +347,7 @@ function startRound(roomCode) {
     const allWords = [...wordLists.easy, ...wordLists.medium, ...wordLists.hard];
     room.currentWord = allWords[Math.floor(Math.random() * allWords.length)];
     room.timeLeft = room.drawTime;
+    room.revealedLetters = [];
 
     // Reset players
     room.players.forEach((p, index) => {
@@ -327,6 +377,12 @@ function startRound(roomCode) {
         }
     });
 
+    // Start hint timer - reveal letter every 15 seconds
+    if (room.hintTimer) clearInterval(room.hintTimer);
+    room.hintTimer = setInterval(() => {
+        revealHint(roomCode);
+    }, 15000);
+
     // Start timer
     if (room.timer) clearInterval(room.timer);
     room.timer = setInterval(() => {
@@ -335,6 +391,7 @@ function startRound(roomCode) {
 
         if (room.timeLeft <= 0) {
             clearInterval(room.timer);
+            if (room.hintTimer) clearInterval(room.hintTimer);
             endRound(roomCode);
         }
     }, 1000);
@@ -345,6 +402,7 @@ function endRound(roomCode) {
     if (!room) return;
 
     if (room.timer) clearInterval(room.timer);
+    if (room.hintTimer) clearInterval(room.hintTimer);
 
     io.to(roomCode).emit('round-ended', {
         word: room.currentWord,
