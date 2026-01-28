@@ -1398,7 +1398,8 @@
                 ctx.moveTo(lastX, lastY);
                 ctx.lineTo(pos.x, pos.y);
                 ctx.strokeStyle = isEraser ? '#FFFFFF' : currentColor;
-                ctx.lineWidth = brushSize;
+                // Make eraser 1.5x bigger than brush
+                ctx.lineWidth = isEraser ? brushSize * 1.5 : brushSize;
                 ctx.lineCap = 'round';
                 ctx.lineJoin = 'round';
                 ctx.stroke();
@@ -1409,7 +1410,7 @@
                     x2: pos.x, 
                     y2: pos.y, 
                     color: isEraser ? '#FFFFFF' : currentColor,
-                    size: brushSize
+                    size: isEraser ? brushSize * 1.5 : brushSize
                 });
                 
                 lastX = pos.x;
