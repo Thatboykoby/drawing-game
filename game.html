@@ -31,8 +31,8 @@
             text-align: center;
             color: #58a6ff;
             margin: 0;
-            padding: 20px 0 10px 0;
-            font-size: 2em;
+            padding: 15px 0 10px 0;
+            font-size: 1.8em;
             font-weight: 600;
             letter-spacing: -0.5px;
         }
@@ -264,11 +264,10 @@
             border: 1px solid #30363d;
         }
 
-        .modal-header {
-            font-size: 1.3em;
-            font-weight: 600;
+        .modal-content h2 {
+            margin: 0 0 20px 0;
             color: #e6edf3;
-            margin-bottom: 20px;
+            font-size: 1.4em;
         }
 
         .form-group {
@@ -277,23 +276,22 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #e6edf3;
-            font-size: 0.95em;
+            margin-bottom: 6px;
+            color: #7d8590;
+            font-size: 0.9em;
         }
 
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
-            padding: 10px 12px;
+            padding: 8px 12px;
+            background: #0d1117;
             border: 1px solid #30363d;
             border-radius: 6px;
-            font-size: 0.95em;
-            background: #0d1117;
             color: #e6edf3;
+            font-size: 0.95em;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group input:focus {
             outline: none;
             border-color: #58a6ff;
         }
@@ -302,315 +300,279 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-top: 12px;
         }
 
         .checkbox-group input[type="checkbox"] {
-            width: auto;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
         }
 
         /* Username Screen */
-        #usernameScreen {
+        .username-screen {
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 20px;
         }
 
-        #usernameScreen h1 {
-            margin-bottom: 8px;
+        .username-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
         }
 
-        #usernameScreen h2 {
+        .username-card h2 {
+            color: #58a6ff;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .username-card p {
             color: #7d8590;
-            margin-bottom: 32px;
-            font-size: 1.1em;
-            font-weight: 400;
+            margin-bottom: 30px;
         }
 
-        #usernameScreen .form-group {
-            width: 100%;
-            max-width: 360px;
-        }
-
-        #usernameScreen .btn {
-            max-width: 360px;
-        }
-
-        /* Game Room Screen */
-        .game-room {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 16px;
-            padding: 16px;
-            max-width: 1600px;
+        /* Game Screen - FIXED LAYOUT */
+        .game-layout {
+            display: flex;
+            height: calc(100vh - 80px);
+            padding: 10px;
+            gap: 10px;
+            max-width: 1800px;
             margin: 0 auto;
-            height: calc(100vh - 70px);
         }
 
         .game-main {
-            background: #0d1117;
-            border-radius: 6px;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            min-width: 0;
         }
 
-        .room-header {
+        .game-info-bar {
             background: #161b22;
-            padding: 12px 16px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #30363d;
+            margin-bottom: 10px;
         }
 
-        .room-header-info {
-            color: #e6edf3;
-            font-weight: 500;
-            font-size: 0.95em;
-        }
-
-        .game-status {
-            text-align: center;
-            padding: 20px;
-            background: #161b22;
-            margin: 16px 16px 0 16px;
-            border-radius: 6px;
-            border: 1px solid #30363d;
-        }
-
-        .word-display {
-            font-size: 2em;
-            font-weight: 600;
-            color: #e6edf3;
-            letter-spacing: 4px;
-            margin-bottom: 8px;
-        }
-
-        .game-status-text {
-            color: #7d8590;
-            margin-top: 8px;
-            font-size: 0.95em;
-        }
-
-        /* Enhanced Canvas Container */
-        .canvas-container {
-            background: #ffffff;
-            border-radius: 6px;
-            padding: 8px;
-            margin: 0 16px 16px 16px;
-            flex: 1;
+        .game-info-left {
             display: flex;
+            gap: 20px;
             align-items: center;
-            justify-content: center;
         }
 
-        #canvas {
-            display: block;
-            border: 1px solid #d0d7de;
-            border-radius: 4px;
-            cursor: crosshair;
-            background: white;
-            max-width: 100%;
-            max-height: 100%;
+        #roomInfo {
+            color: #7d8590;
+            font-size: 0.9em;
         }
 
-        /* Enhanced Drawing Tools - Skribbl.io Style */
-        .drawing-tools {
+        #wordDisplay {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #58a6ff;
+            letter-spacing: 2px;
+        }
+
+        #timerDisplay {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #238636;
+        }
+
+        .leave-btn {
+            padding: 8px 16px;
+            background: #da3633;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        .leave-btn:hover {
+            background: #f85149;
+        }
+
+        /* Drawing Area - IMPROVED */
+        .drawing-area {
             background: #161b22;
+            border: 1px solid #30363d;
             border-radius: 6px;
             padding: 12px;
-            margin: 0 16px 16px 16px;
-            border: 1px solid #30363d;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         }
 
-        .tool-section {
+        /* Color Tools - COMPACT */
+        .drawing-tools {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 12px;
+            flex-wrap: wrap;
         }
 
-        .tool-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .tool-label {
+        .tools-label {
             color: #7d8590;
-            font-weight: 500;
-            margin-bottom: 8px;
-            display: block;
             font-size: 0.85em;
+            font-weight: 500;
         }
 
-        /* Color Palette Grid */
         .color-palette {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
+            display: flex;
             gap: 4px;
+            flex-wrap: wrap;
         }
 
         .color-picker {
-            width: 100%;
-            aspect-ratio: 1;
+            width: 28px;
+            height: 28px;
             border-radius: 4px;
             cursor: pointer;
             border: 2px solid transparent;
-            transition: all 0.1s;
-            position: relative;
+            transition: all 0.15s;
         }
 
         .color-picker:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            border-color: #58a6ff;
         }
 
         .color-picker.selected {
             border-color: #58a6ff;
-            transform: scale(1.1);
+            box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.3);
         }
 
-        /* Eraser Button */
-        .eraser-btn {
-            padding: 8px 16px;
+        .brush-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brush-size-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brush-size-control label {
+            color: #7d8590;
+            font-size: 0.85em;
+        }
+
+        #brushSize {
+            width: 80px;
+        }
+
+        .tool-btn {
+            padding: 6px 14px;
             background: #0d1117;
-            color: #e6edf3;
             border: 1px solid #30363d;
             border-radius: 6px;
+            color: #e6edf3;
             cursor: pointer;
+            font-size: 0.85em;
             font-weight: 500;
             transition: all 0.15s;
-            width: 100%;
-            font-size: 0.9em;
         }
 
-        .eraser-btn:hover {
+        .tool-btn:hover {
             border-color: #58a6ff;
             background: #161b22;
         }
 
-        .eraser-btn.active {
+        .tool-btn.active {
+            background: #58a6ff;
             border-color: #58a6ff;
-            background: #1f6feb;
             color: white;
         }
 
-        /* Brush Size Slider */
-        .slider-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brush-preview {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #0d1117;
+        /* Canvas Container - MAXIMIZED */
+        .canvas-container {
+            flex: 1;
+            background: white;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #30363d;
+            overflow: hidden;
+            min-height: 0;
+            position: relative;
         }
 
-        .brush-preview-dot {
-            background: #e6edf3;
-            border-radius: 50%;
-            transition: all 0.15s;
-        }
-
-        .brush-slider {
-            flex: 1;
-            -webkit-appearance: none;
-            height: 6px;
-            border-radius: 3px;
-            background: #30363d;
-            outline: none;
-        }
-
-        .brush-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #58a6ff;
-            cursor: pointer;
-        }
-
-        .brush-slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #58a6ff;
-            cursor: pointer;
-            border: none;
-        }
-
-        .brush-size-label {
-            color: #7d8590;
-            font-weight: 500;
-            min-width: 24px;
-            font-size: 0.9em;
-        }
-
-        /* Clear Button */
-        .clear-btn {
-            padding: 8px 16px;
-            background: #0d1117;
-            color: #e6edf3;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.15s;
+        #drawingCanvas {
+            display: block;
+            cursor: crosshair;
+            max-width: 100%;
+            max-height: 100%;
             width: 100%;
-            font-size: 0.9em;
-        }
-
-        .clear-btn:hover {
-            background: #161b22;
-            border-color: #58a6ff;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* Sidebar */
         .game-sidebar {
+            width: 320px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 10px;
         }
 
-        .players-panel, .chat-panel {
+        .players-panel {
             background: #161b22;
+            border: 1px solid #30363d;
             border-radius: 6px;
             padding: 16px;
-            border: 1px solid #30363d;
+            max-height: 45%;
+            overflow-y: auto;
         }
 
-        .panel-header {
+        .players-panel h3 {
             color: #e6edf3;
+            font-size: 1.1em;
+            margin: 0 0 12px 0;
             font-weight: 600;
-            margin-bottom: 12px;
-            font-size: 1em;
         }
 
-        .players-list {
+        #playersList {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
         .player-item {
-            background: #0d1117;
-            padding: 10px 12px;
-            border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 12px;
+            background: #0d1117;
+            border-radius: 6px;
             border: 1px solid #30363d;
-            font-size: 0.9em;
         }
 
         .player-item.host {
-            border-color: #d29922;
+            border-color: #f1e05a;
+            background: rgba(241, 224, 90, 0.1);
         }
 
         .player-item.drawing {
@@ -618,48 +580,64 @@
             background: rgba(88, 166, 255, 0.1);
         }
 
-        .chat-messages {
-            height: 340px;
-            overflow-y: auto;
-            background: #0d1117;
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 12px;
+        .chat-panel {
+            flex: 1;
+            background: #161b22;
             border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .chat-panel h3 {
+            color: #e6edf3;
+            font-size: 1.1em;
+            margin: 0 0 12px 0;
+            font-weight: 600;
+        }
+
+        #chatMessages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-height: 0;
         }
 
         .chat-message {
-            padding: 8px;
-            margin-bottom: 6px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.03);
-            color: #e6edf3;
+            padding: 8px 10px;
+            background: #0d1117;
+            border-radius: 6px;
             font-size: 0.9em;
             word-wrap: break-word;
         }
 
         .chat-message.correct-guess {
-            background: rgba(46, 160, 67, 0.15);
+            background: rgba(35, 134, 54, 0.2);
+            border: 1px solid #238636;
             color: #3fb950;
-            font-weight: 500;
         }
 
-        .chat-input-container {
+        .chat-input-group {
             display: flex;
             gap: 8px;
         }
 
-        .chat-input {
+        #chatInput {
             flex: 1;
             padding: 8px 12px;
+            background: #0d1117;
             border: 1px solid #30363d;
             border-radius: 6px;
-            background: #0d1117;
             color: #e6edf3;
             font-size: 0.9em;
         }
 
-        .chat-input:focus {
+        #chatInput:focus {
             outline: none;
             border-color: #58a6ff;
         }
@@ -670,57 +648,95 @@
             color: white;
             border: none;
             border-radius: 6px;
-            font-weight: 500;
             cursor: pointer;
-            font-size: 0.9em;
+            font-weight: 500;
         }
 
         .send-btn:hover {
             background: #2ea043;
         }
 
+        /* Waiting Area */
         .waiting-area {
-            text-align: center;
-            padding: 48px 20px;
-            margin: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            margin: 20px;
         }
 
         .waiting-area h2 {
-            color: #e6edf3;
-            margin-bottom: 12px;
-            font-weight: 600;
+            color: #58a6ff;
+            font-size: 1.8em;
+            margin-bottom: 16px;
         }
 
         .waiting-area p {
             color: #7d8590;
-            margin-bottom: 24px;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        #startGameBtn {
+            padding: 12px 32px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #startGameBtn:hover {
+            background: #2ea043;
         }
 
         .empty-state {
             text-align: center;
-            padding: 48px 20px;
+            padding: 60px 20px;
             color: #7d8590;
         }
 
         .empty-state h3 {
-            color: #e6edf3;
-            margin-bottom: 8px;
-            font-weight: 600;
+            font-size: 1.3em;
+            margin-bottom: 10px;
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .lobby-container, .game-room {
+        @media (max-width: 1400px) {
+            .game-layout {
+                flex-direction: column;
+            }
+
+            .game-sidebar {
+                width: 100%;
+                flex-direction: row;
+                max-height: 350px;
+            }
+
+            .players-panel, .chat-panel {
+                flex: 1;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .lobby-container {
                 grid-template-columns: 1fr;
             }
 
-            .lobby-sidebar {
-                max-width: 100%;
+            .game-sidebar {
+                flex-direction: column;
             }
 
-            #canvas {
-                width: 100%;
-                height: auto;
+            .drawing-tools {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -728,13 +744,15 @@
 <body>
     <div class="container">
         <!-- Username Screen -->
-        <div id="usernameScreen">
-            <h1>🎨 Draw & Guess</h1>
-            <h2>Enter Your Name</h2>
-            <div class="form-group">
-                <input type="text" id="usernameInput" placeholder="Your name..." maxlength="20">
+        <div id="usernameScreen" class="username-screen">
+            <div class="username-card">
+                <h2>🎨 Draw & Guess</h2>
+                <p>Enter your username to start playing</p>
+                <div class="form-group">
+                    <input type="text" id="usernameInput" placeholder="Your username" maxlength="20" autofocus>
+                </div>
+                <button class="btn btn-primary" onclick="setUsername()">Continue</button>
             </div>
-            <button class="btn btn-primary" onclick="setUsername()">Start Playing</button>
         </div>
 
         <!-- Lobby Screen -->
@@ -743,8 +761,8 @@
             <div class="lobby-container">
                 <div class="lobby-sidebar">
                     <div class="user-info">
-                        <div class="user-avatar" id="userAvatar">?</div>
-                        <div class="user-name" id="displayUsername">Player</div>
+                        <div class="user-avatar" id="userAvatar"></div>
+                        <div class="user-name" id="userName"></div>
                     </div>
                     <button class="btn btn-primary" onclick="showCreateRoomModal()">Create Room</button>
                     <button class="btn btn-secondary" onclick="showJoinPrivateModal()">Join Private Room</button>
@@ -770,110 +788,72 @@
 
         <!-- Game Screen -->
         <div id="gameScreen" class="hidden">
-            <div class="game-room">
+            <h1>🎨 Draw & Guess</h1>
+            <div class="game-layout">
                 <div class="game-main">
-                    <div class="room-header">
-                        <div class="room-header-info" id="roomInfo">Room: Loading...</div>
-                        <button class="btn btn-secondary" onclick="leaveRoom()" style="width: auto; padding: 8px 20px;">Leave Room</button>
+                    <div class="game-info-bar">
+                        <div class="game-info-left">
+                            <span id="roomInfo"></span>
+                            <span id="wordDisplay">- - - -</span>
+                            <span id="timerDisplay">⏱️ 0s</span>
+                            <span id="gameStatus"></span>
+                        </div>
+                        <button class="leave-btn" onclick="leaveRoom()">Leave Room</button>
                     </div>
 
                     <!-- Waiting Area -->
                     <div id="waitingArea" class="waiting-area">
-                        <h2>⏳ Waiting for players...</h2>
-                        <p>The host will start the game when ready!</p>
-                        <button id="startGameBtn" class="btn btn-primary hidden" onclick="startGame()" style="max-width: 300px; margin: 20px auto;">Start Game</button>
+                        <h2>Waiting for players...</h2>
+                        <p>Share the room code with your friends!</p>
+                        <button id="startGameBtn" class="btn btn-primary hidden" onclick="startGame()">Start Game</button>
                     </div>
 
                     <!-- Game Area -->
-                    <div id="gameArea" class="hidden">
-                        <div class="game-status">
-                            <div class="word-display" id="wordDisplay">_ _ _ _</div>
-                            <div class="game-status-text" id="gameStatus">Get ready!</div>
-                            <div class="game-status-text" id="timerDisplay">⏱️ 60s</div>
-                        </div>
-
-                        <!-- Enhanced Drawing Tools -->
+                    <div id="gameArea" class="drawing-area hidden">
                         <div class="drawing-tools">
-                            <div class="tool-section">
-                                <span class="tool-label">🎨 Colors</span>
-                                <div class="color-palette">
-                                    <!-- Row 1 - Basic Colors -->
-                                    <div class="color-picker selected" style="background: #000000;" onclick="selectColor('#000000', this)"></div>
-                                    <div class="color-picker" style="background: #FFFFFF; border: 2px solid #1a508b;" onclick="selectColor('#FFFFFF', this)"></div>
-                                    <div class="color-picker" style="background: #C0C0C0;" onclick="selectColor('#C0C0C0', this)"></div>
-                                    <div class="color-picker" style="background: #808080;" onclick="selectColor('#808080', this)"></div>
-                                    <div class="color-picker" style="background: #800000;" onclick="selectColor('#800000', this)"></div>
-                                    <div class="color-picker" style="background: #FF0000;" onclick="selectColor('#FF0000', this)"></div>
-                                    <div class="color-picker" style="background: #800080;" onclick="selectColor('#800080', this)"></div>
-                                    <div class="color-picker" style="background: #FF00FF;" onclick="selectColor('#FF00FF', this)"></div>
-                                    <div class="color-picker" style="background: #008000;" onclick="selectColor('#008000', this)"></div>
-                                    <div class="color-picker" style="background: #00FF00;" onclick="selectColor('#00FF00', this)"></div>
-                                    
-                                    <!-- Row 2 - More Colors -->
-                                    <div class="color-picker" style="background: #808000;" onclick="selectColor('#808000', this)"></div>
-                                    <div class="color-picker" style="background: #FFFF00;" onclick="selectColor('#FFFF00', this)"></div>
-                                    <div class="color-picker" style="background: #000080;" onclick="selectColor('#000080', this)"></div>
-                                    <div class="color-picker" style="background: #0000FF;" onclick="selectColor('#0000FF', this)"></div>
-                                    <div class="color-picker" style="background: #008080;" onclick="selectColor('#008080', this)"></div>
-                                    <div class="color-picker" style="background: #00FFFF;" onclick="selectColor('#00FFFF', this)"></div>
-                                    <div class="color-picker" style="background: #FFA500;" onclick="selectColor('#FFA500', this)"></div>
-                                    <div class="color-picker" style="background: #FF6347;" onclick="selectColor('#FF6347', this)"></div>
-                                    <div class="color-picker" style="background: #FFB6C1;" onclick="selectColor('#FFB6C1', this)"></div>
-                                    <div class="color-picker" style="background: #DDA0DD;" onclick="selectColor('#DDA0DD', this)"></div>
-                                    
-                                    <!-- Row 3 - Extended Palette -->
-                                    <div class="color-picker" style="background: #8B4513;" onclick="selectColor('#8B4513', this)"></div>
-                                    <div class="color-picker" style="background: #A0522D;" onclick="selectColor('#A0522D', this)"></div>
-                                    <div class="color-picker" style="background: #D2691E;" onclick="selectColor('#D2691E', this)"></div>
-                                    <div class="color-picker" style="background: #F4A460;" onclick="selectColor('#F4A460', this)"></div>
-                                    <div class="color-picker" style="background: #90EE90;" onclick="selectColor('#90EE90', this)"></div>
-                                    <div class="color-picker" style="background: #98FB98;" onclick="selectColor('#98FB98', this)"></div>
-                                    <div class="color-picker" style="background: #87CEEB;" onclick="selectColor('#87CEEB', this)"></div>
-                                    <div class="color-picker" style="background: #4169E1;" onclick="selectColor('#4169E1', this)"></div>
-                                    <div class="color-picker" style="background: #9370DB;" onclick="selectColor('#9370DB', this)"></div>
-                                    <div class="color-picker" style="background: #FF1493;" onclick="selectColor('#FF1493', this)"></div>
-                                </div>
+                            <span class="tools-label">🎨 Colors:</span>
+                            <div class="color-palette">
+                                <div class="color-picker selected" style="background: #000000;" onclick="selectColor('#000000', this)"></div>
+                                <div class="color-picker" style="background: #666666;" onclick="selectColor('#666666', this)"></div>
+                                <div class="color-picker" style="background: #8B0000;" onclick="selectColor('#8B0000', this)"></div>
+                                <div class="color-picker" style="background: #FF0000;" onclick="selectColor('#FF0000', this)"></div>
+                                <div class="color-picker" style="background: #800080;" onclick="selectColor('#800080', this)"></div>
+                                <div class="color-picker" style="background: #FF00FF;" onclick="selectColor('#FF00FF', this)"></div>
+                                <div class="color-picker" style="background: #00FF00;" onclick="selectColor('#00FF00', this)"></div>
+                                <div class="color-picker" style="background: #00FFFF;" onclick="selectColor('#00FFFF', this)"></div>
+                                <div class="color-picker" style="background: #0000FF;" onclick="selectColor('#0000FF', this)"></div>
+                                <div class="color-picker" style="background: #FFFF00;" onclick="selectColor('#FFFF00', this)"></div>
+                                <div class="color-picker" style="background: #FFA500;" onclick="selectColor('#FFA500', this)"></div>
+                                <div class="color-picker" style="background: #A52A2A;" onclick="selectColor('#A52A2A', this)"></div>
                             </div>
-
-                            <div class="tool-section">
-                                <span class="tool-label">🖌️ Brush Size</span>
-                                <div class="slider-container">
-                                    <div class="brush-preview">
-                                        <div class="brush-preview-dot" id="brushPreview" style="width: 6px; height: 6px;"></div>
-                                    </div>
-                                    <input type="range" min="2" max="50" value="6" class="brush-slider" id="brushSlider">
-                                    <span class="brush-size-label" id="brushSizeLabel">6</span>
+                            
+                            <div class="brush-controls">
+                                <div class="brush-size-control">
+                                    <label>Size:</label>
+                                    <input type="range" id="brushSize" min="1" max="20" value="3">
                                 </div>
-                            </div>
-
-                            <div class="tool-section" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <button class="eraser-btn" id="eraserBtn" onclick="toggleEraser()">🧹 Eraser</button>
-                                <button class="clear-btn" onclick="clearCanvas()">🗑️ Clear</button>
+                                <button class="tool-btn" id="eraserBtn" onclick="toggleEraser()">🧹 Eraser</button>
+                                <button class="tool-btn" onclick="clearCanvas()">🗑️ Clear</button>
                             </div>
                         </div>
 
                         <div class="canvas-container">
-                            <canvas id="canvas" width="800" height="600"></canvas>
+                            <canvas id="drawingCanvas" width="1200" height="800"></canvas>
                         </div>
                     </div>
                 </div>
 
                 <div class="game-sidebar">
                     <div class="players-panel">
-                        <div class="panel-header">👥 Players</div>
-                        <div class="players-list" id="playersList">
-                            <div class="player-item">
-                                <span>Loading...</span>
-                                <span>0 pts</span>
-                            </div>
-                        </div>
+                        <h3>👥 Players</h3>
+                        <div id="playersList"></div>
                     </div>
 
                     <div class="chat-panel">
-                        <div class="panel-header">💬 Chat</div>
-                        <div class="chat-messages" id="chatMessages"></div>
-                        <div class="chat-input-container">
-                            <input type="text" id="chatInput" class="chat-input" placeholder="Type your guess...">
+                        <h3>💬 Chat</h3>
+                        <div id="chatMessages"></div>
+                        <div class="chat-input-group">
+                            <input type="text" id="chatInput" placeholder="Type your guess...">
                             <button class="send-btn" onclick="sendMessage()">Send</button>
                         </div>
                     </div>
@@ -884,47 +864,28 @@
         <!-- Create Room Modal -->
         <div id="createRoomModal" class="modal hidden">
             <div class="modal-content">
-                <div class="modal-header">Create New Room</div>
+                <h2>Create Room</h2>
                 <div class="form-group">
                     <label>Room Name</label>
-                    <input type="text" id="roomName" placeholder="Enter room name...">
+                    <input type="text" id="roomName" placeholder="My Awesome Room" maxlength="30">
                 </div>
                 <div class="form-group">
                     <label>Max Players</label>
-                    <select id="maxPlayers">
-                        <option value="2">2</option>
-                        <option value="4">4</option>
-                        <option value="6" selected>6</option>
-                        <option value="8">8</option>
-                        <option value="10">10</option>
-                    </select>
+                    <input type="number" id="maxPlayers" min="2" max="10" value="6">
                 </div>
                 <div class="form-group">
                     <label>Rounds</label>
-                    <select id="maxRounds">
-                        <option value="2">2</option>
-                        <option value="3" selected>3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+                    <input type="number" id="maxRounds" min="1" max="10" value="3">
                 </div>
                 <div class="form-group">
                     <label>Draw Time (seconds)</label>
-                    <select id="drawTime">
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                        <option value="60" selected>60</option>
-                        <option value="90">90</option>
-                        <option value="120">120</option>
-                    </select>
+                    <input type="number" id="drawTime" min="30" max="180" value="60">
                 </div>
-                <div class="form-group">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="isPublic" checked>
-                        <label style="margin: 0;">Public Room</label>
-                    </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="isPublic" checked>
+                    <label>Public Room (visible to everyone)</label>
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div class="modal-actions">
                     <button class="btn btn-primary" onclick="createRoom()">Create</button>
                     <button class="btn btn-secondary" onclick="hideCreateRoomModal()">Cancel</button>
                 </div>
@@ -934,12 +895,12 @@
         <!-- Join Private Room Modal -->
         <div id="joinPrivateModal" class="modal hidden">
             <div class="modal-content">
-                <div class="modal-header">Join Private Room</div>
+                <h2>Join Private Room</h2>
                 <div class="form-group">
                     <label>Room Code</label>
-                    <input type="text" id="privateRoomCode" placeholder="Enter 6-digit code..." maxlength="6" style="text-transform: uppercase;">
+                    <input type="text" id="privateRoomCode" placeholder="Enter 6-digit code" maxlength="6" style="text-transform: uppercase;">
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div class="modal-actions">
                     <button class="btn btn-primary" onclick="joinPrivateRoom()">Join</button>
                     <button class="btn btn-secondary" onclick="hideJoinPrivateModal()">Cancel</button>
                 </div>
@@ -953,51 +914,49 @@
         let currentRoom = null;
         let isHost = false;
         let canDraw = false;
-        let currentColor = '#000000';
-        let brushSize = 6;
-        let isEraser = false;
 
-        // Canvas setup
-        const canvas = document.getElementById('canvas');
+        // Canvas
+        const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas ? canvas.getContext('2d') : null;
         let isDrawing = false;
         let lastX = 0;
         let lastY = 0;
+        let currentColor = '#000000';
+        let brushSize = 3;
+        let isEraser = false;
 
-        // Brush slider
-        const brushSlider = document.getElementById('brushSlider');
-        const brushSizeLabel = document.getElementById('brushSizeLabel');
-        const brushPreview = document.getElementById('brushPreview');
-
+        // Get brush size from slider
+        const brushSlider = document.getElementById('brushSize');
         if (brushSlider) {
             brushSlider.addEventListener('input', (e) => {
                 brushSize = parseInt(e.target.value);
-                brushSizeLabel.textContent = brushSize;
-                brushPreview.style.width = brushSize + 'px';
-                brushPreview.style.height = brushSize + 'px';
             });
-        }
-
-        // Username
-        function setUsername() {
-            const input = document.getElementById('usernameInput').value.trim();
-            if (!input) {
-                alert('Please enter a name!');
-                return;
-            }
-            username = input;
-            document.getElementById('displayUsername').textContent = username;
-            document.getElementById('userAvatar').textContent = username[0].toUpperCase();
-            socket.emit('set-username', { username });
-            showScreen('lobbyScreen');
         }
 
         // Screen management
         function showScreen(screenId) {
-            ['usernameScreen', 'lobbyScreen', 'gameScreen'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
+            document.querySelectorAll('.username-screen, #lobbyScreen, #gameScreen').forEach(screen => {
+                screen.classList.add('hidden');
             });
             document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        // Set username
+        function setUsername() {
+            const input = document.getElementById('usernameInput');
+            username = input.value.trim();
+            
+            if (username.length < 2) {
+                alert('Username must be at least 2 characters');
+                return;
+            }
+
+            socket.emit('set-username', { username });
+            showScreen('lobbyScreen');
+
+            // Update user display
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
         }
 
         // Create Room Modal
@@ -1010,7 +969,7 @@
         }
 
         function createRoom() {
-            const roomName = document.getElementById('roomName').value.trim() || `${username}'s Room`;
+            const roomName = document.getElementById('roomName').value.trim() || 'Unnamed Room';
             const maxPlayers = parseInt(document.getElementById('maxPlayers').value);
             const maxRounds = parseInt(document.getElementById('maxRounds').value);
             const drawTime = parseInt(document.getElementById('drawTime').value);
@@ -1077,7 +1036,6 @@
             document.getElementById('eraserBtn').classList.remove('active');
             document.querySelectorAll('.color-picker').forEach(el => el.classList.remove('selected'));
             element.classList.add('selected');
-            brushPreview.style.background = color;
         }
 
         function toggleEraser() {
@@ -1086,10 +1044,8 @@
             if (isEraser) {
                 eraserBtn.classList.add('active');
                 document.querySelectorAll('.color-picker').forEach(el => el.classList.remove('selected'));
-                brushPreview.style.background = '#FFFFFF';
             } else {
                 eraserBtn.classList.remove('active');
-                brushPreview.style.background = currentColor;
             }
         }
 
@@ -1213,8 +1169,8 @@
                 if (!canDraw) return;
                 isDrawing = true;
                 const rect = canvas.getBoundingClientRect();
-                lastX = e.clientX - rect.left;
-                lastY = e.clientY - rect.top;
+                lastX = (e.clientX - rect.left) * (canvas.width / rect.width);
+                lastY = (e.clientY - rect.top) * (canvas.height / rect.height);
                 
                 ctx.beginPath();
                 ctx.moveTo(lastX, lastY);
@@ -1223,8 +1179,8 @@
             canvas.addEventListener('mousemove', (e) => {
                 if (!isDrawing || !canDraw) return;
                 const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const y = (e.clientY - rect.top) * (canvas.height / rect.height);
                 
                 ctx.lineTo(x, y);
                 ctx.strokeStyle = isEraser ? '#FFFFFF' : currentColor;
