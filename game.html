@@ -1134,12 +1134,29 @@
             function resizeCanvas() {
                 const container = canvas.parentElement;
                 const rect = container.getBoundingClientRect();
-                canvas.width = rect.width;
-                canvas.height = rect.height;
+                // Only resize if dimensions actually changed to avoid clearing canvas
+                if (canvas.width !== rect.width || canvas.height !== rect.height) {
+                    // Store current drawing
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    canvas.width = rect.width;
+                    canvas.height = rect.height;
+                    // Restore drawing
+                    ctx.putImageData(imageData, 0, 0);
+                }
             }
             
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+            // Set initial size
+            const container = canvas.parentElement;
+            const rect = container.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            // Only resize on actual window resize, not constantly
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(resizeCanvas, 250);
+            });
         }
 
         // Screen management
@@ -1372,14 +1389,18 @@
             // Helper function to get mouse position
             function getMousePos(e) {
                 const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                // Clamp coordinates to canvas bounds
                 return {
-                    x: e.clientX - rect.left,
-                    y: e.clientY - rect.top
+                    x: Math.max(0, Math.min(canvas.width, x)),
+                    y: Math.max(0, Math.min(canvas.height, y))
                 };
             }
 
             canvas.addEventListener('mousedown', (e) => {
-                if (!canDraw) return;
+                if (!canDraw || !ctx) return;
+                e.preventDefault();
                 isDrawing = true;
                 const pos = getMousePos(e);
                 lastX = pos.x;
@@ -1390,9 +1411,12 @@
             });
 
             canvas.addEventListener('mousemove', (e) => {
-                if (!isDrawing || !canDraw) return;
+                if (!isDrawing || !canDraw || !ctx) return;
+                e.preventDefault();
                 const pos = getMousePos(e);
                 
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
                 ctx.lineTo(pos.x, pos.y);
                 ctx.strokeStyle = isEraser ? '#FFFFFF' : currentColor;
                 ctx.lineWidth = brushSize;
