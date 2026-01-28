@@ -646,6 +646,7 @@
             width: 100%;
             height: 100%;
             background: white;
+            touch-action: none; /* Prevent scrolling/zooming on touch */
         }
 
         /* Sidebar */
@@ -1381,6 +1382,19 @@
                 };
             }
 
+            // Helper function to get touch position
+            function getTouchPos(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const touch = e.touches[0];
+                return {
+                    x: (touch.clientX - rect.left) * scaleX,
+                    y: (touch.clientY - rect.top) * scaleY
+                };
+            }
+
+            // Mouse events
             canvas.addEventListener('mousedown', (e) => {
                 if (!canDraw) return;
                 isDrawing = true;
@@ -1435,6 +1449,52 @@
                     lastY = pos.y;
                     isDrawing = true;
                 }
+            });
+
+            // Touch events for mobile/tablet
+            canvas.addEventListener('touchstart', (e) => {
+                if (!canDraw) return;
+                e.preventDefault(); // Prevent scrolling
+                isDrawing = true;
+                const pos = getTouchPos(e);
+                lastX = pos.x;
+                lastY = pos.y;
+            }, { passive: false });
+
+            canvas.addEventListener('touchmove', (e) => {
+                if (!isDrawing || !canDraw) return;
+                e.preventDefault(); // Prevent scrolling
+                const pos = getTouchPos(e);
+                
+                // Draw line
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.strokeStyle = isEraser ? '#FFFFFF' : currentColor;
+                ctx.lineWidth = isEraser ? brushSize * 1.5 : brushSize;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+                
+                socket.emit('draw', { 
+                    x1: lastX, 
+                    y1: lastY, 
+                    x2: pos.x, 
+                    y2: pos.y, 
+                    color: isEraser ? '#FFFFFF' : currentColor,
+                    size: isEraser ? brushSize * 1.5 : brushSize
+                });
+                
+                lastX = pos.x;
+                lastY = pos.y;
+            }, { passive: false });
+
+            canvas.addEventListener('touchend', () => {
+                isDrawing = false;
+            });
+
+            canvas.addEventListener('touchcancel', () => {
+                isDrawing = false;
             });
         }
 
